@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StudyMate Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: 'Comic Neue', cursive;
+      background: #ffffff;
+    }
+    .cartoon-book {
+      border-radius: 20px;
+      transition: transform 0.3s ease;
+      filter: saturate(1.0) contrast(1.1) brightness(1.0);
+      image-rendering: auto;
+    }
+    .cartoon-book:hover {
+      transform: scale(1.05) rotate(-2deg);
+    }
+    .study-mate-text {
+      font-weight: 700;
+      font-size: 1.5rem; /* text-5xl approx */
+      background: linear-gradient(90deg, #000000 0%, #2563eb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-fill-color: transparent;
+      user-select: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-gray-800">
+  <header class="flex items-center justify-between border-b border-gray-300 px-4 sm:px-6 md:px-10 py-3">
+      <div class="flex items-center space-x-0">
+        <img alt="Clear cartoon style open book with bright orange and blue pages, thick outlines and simplified shapes" class="cartoon-book w-12 h-auto" src="https://storage.googleapis.com/a1aa/image/1d895380-bc86-4e62-44af-0053320c44d6.jpg"/>
+        <span class="study-mate-text">
+          StudyMate
+        </span>
+      </div>
+    <nav id="nav-links" class="hidden md:flex justify-center flex-1 space-x-12 text-gray-00 text-m font-normal"></nav>
+    <div class="flex items-center space-x-6 text-gray-600 text-lg">
+      <button aria-label="Notifications" class="hover:text-gray-900">
+        <i class="far fa-bell"></i>
+      </button>
+      <button aria-label="User Account" class="hover:text-gray-900">
+        <i class="far fa-user"></i>
+      </button>
+    </div>
+  </header>
+
+  <main class="flex flex-col md:flex-row max-w-[1200px] mx-auto px-4 sm:px-6 md:px-10 py-6 gap-6">
+    <!-- Left Sidebar -->
+    <aside class="flex flex-col space-y-4 md:w-60">
+      <div class="relative inline-block text-left">
+        <button id="upload-button" type="button" class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-blue-600 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500" aria-haspopup="true" aria-expanded="true" aria-controls="upload-menu">
+          <i class="fas fa-cloud-upload-alt text-sm mr-2"></i> Upload Materials
+          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <div id="upload-menu" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none hidden z-10" role="menu" aria-orientation="vertical" aria-labelledby="upload-button" tabindex="-1">
+          <div class="py-1" role="none">
+            <button type="button" class="upload-option flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="file" role="menuitem" tabindex="-1" id="upload-file">
+              <i class="fas fa-folder-open text-blue-600 text-sm mr-2"></i>File
+            </button>
+            <button type="button" class="upload-option flex items-center w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="link" role="menuitem" tabindex="-1" id="upload-link">
+              <i class="fas fa-link text-blue-600 text-sm mr-2"></i>Link
+            </button>
+            <button type="button" class="upload-option flex items-center w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="gdrive" role="menuitem" tabindex="-1" id="upload-gdrive">
+            <img alt="Google Drive icon with triangular shape in green, yellow, and blue colors on transparent background" class="w-5 h-6 mr-2" src="https://storage.googleapis.com/a1aa/image/fbc5ff21-41db-4d69-f82c-f78df459647e.jpg" />
+              Google Drive
+            </button>
+            <div class="border-t border-gray-300 my-1"></div>
+            <button type="button" class="upload-option flex items-center w-full text-left px-5 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="docs" role="menuitem" tabindex="-1" id="upload-docs">
+              <i class="fas fa-file-alt text-blue-600 text-sm mr-3"></i>Docs
+            </button>
+            <button type="button" class="upload-option flex items-center w-full text-left px-5 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="slides" role="menuitem" tabindex="-1" id="upload-slides">
+              <i class="fas fa-file-alt text-yellow-600 text-sm mr-3"></i>Slides
+            </button>
+            <button type="button" class="upload-option flex items-center w-full text-left px-5 py-2 text-sm text-gray-700 hover:bg-gray-100" data-option="sheets" role="menuitem" tabindex="-1" id="upload-sheets">
+              <i class="fas fa-file-excel text-green-600 text-sm mr-3"></i>Sheets
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <form id="upload-form" class="mt-4 hidden" enctype="multipart/form-data" method="POST" action="/upload">
+        <input id="file-upload" name="file" type="file" accept=".pdf,.doc,.docx" class="hidden" />
+        <input id="link-input" name="link" type="url" placeholder="Enter URL" class="hidden border border-gray-300 rounded-md px-3 py-2 w-full text-sm" />
+        <button id="submit-upload" type="submit" class="mt-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-md py-2 px-4 hidden">Submit</button>
+      </form>
+
+      <script>
+        const uploadButton = document.getElementById('upload-button');
+        const uploadMenu = document.getElementById('upload-menu');
+        const uploadForm = document.getElementById('upload-form');
+        const fileInput = document.getElementById('file-upload');
+        const linkInput = document.getElementById('link-input');
+        const submitButton = document.getElementById('submit-upload');
+
+        // Toggle menu visibility
+        uploadButton.addEventListener('click', () => {
+          uploadMenu.classList.toggle('hidden');
+        });
+
+        // Handle option selection
+        document.querySelectorAll('.upload-option').forEach(button => {
+          button.addEventListener('click', () => {
+            const option = button.getAttribute('data-option');
+            uploadMenu.classList.add('hidden');
+            uploadForm.classList.remove('hidden');
+            submitButton.classList.remove('hidden');
+            fileInput.classList.add('hidden');
+            linkInput.classList.add('hidden');
+            fileInput.value = '';
+            linkInput.value = '';
+
+            if (option === 'file') {
+              fileInput.classList.remove('hidden');
+              submitButton.textContent = 'Upload File';
+            } else if (option === 'link') {
+              linkInput.classList.remove('hidden');
+              submitButton.textContent = 'Submit Link';
+            } else {
+              // For Google Drive, Docs, Slides, Sheets show placeholder alert for now
+              alert(`Integration for ${option} upload is not implemented yet.`);
+              uploadForm.classList.add('hidden');
+              submitButton.classList.add('hidden');
+            }
+          });
+        });
+
+        // Handle form submission with fetch API
+        uploadForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const formData = new FormData(uploadForm);
+          try {
+            const response = await fetch('http://localhost:5000/upload', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json'
+              },
+              body: formData
+            });
+            if (response.ok) {
+              // Removed alert for upload success to avoid popup
+              // User can be notified in other ways if needed
+              // User can navigate manually when ready
+            } else {
+              const errorData = await response.json();
+              alert('Upload failed: ' + errorData.message);
+            }
+          } catch (error) {
+            alert('Upload error: ' + error.message);
+          }
+        });
+
+        // Auto-submit file upload on file selection
+        fileInput.addEventListener('change', () => {
+          if (fileInput.files.length > 0) {
+            uploadForm.dispatchEvent(new Event('submit'));
+          }
+        });
+      </script>
+      <button
+        class="flex items-center justify-center space-x-2 border border-gray-300 hover:border-gray-400 text-gray-700 text-sm font-normal rounded-md py-2 px-4"
+        type="button"
+      >
+        <i class="far fa-plus-square text-sm"></i>
+        <span>Create Study Session</span>
+      </button>
+      <button
+        disabled
+        class="flex items-center justify-center space-x-2 border border-gray-200 text-gray-300 text-sm font-normal rounded-md py-2 px-4 cursor-not-allowed"
+        type="button"
+      >
+        <i class="far fa-list-alt text-sm"></i>
+        <span>Start Quiz</span>
+      </button>
+
+      <section
+        class="bg-gray-50 rounded-md p-4 text-gray-700 text-xs leading-tight"
+        aria-label="Progress Overview"
+      >
+        <h3 class="font-semibold text-sm mb-3 select-none">Progress Overview</h3>
+        <div class="flex justify-center mb-3">
+          <svg
+            class="w-20 h-20"
+            viewBox="0 0 100 100"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              stroke="#D1D5DB"
+              stroke-width="10"
+              stroke-dasharray="251.2"
+            />
+            <circle
+              cx="50"
+              cy="50"
+              r="40"
+              stroke="#2563EB"
+              stroke-width="10"
+              stroke-dasharray="188.4"
+              stroke-dashoffset="62.8"
+              stroke-linecap="round"
+              transform="rotate(-90 50 50)"
+            />
+            <text
+              x="50"
+              y="55"
+              text-anchor="middle"
+              font-size="20"
+              fill="#2563EB"
+              font-weight="700"
+              font-family="Inter, sans-serif"
+            >
+              75%
+            </text>
+          </svg>
+        </div>
+        <p class="mb-1 select-none">Current Topic</p>
+        <p class="font-semibold mb-1 select-none">Advanced Mathematics</p>
+        <p class="mb-0 select-none">Time Studied Today</p>
+        <p class="font-semibold select-none">2h 45m</p>
+      </section>
+    </aside>
+
+    <!-- Main Content -->
+    <section class="flex-1 flex flex-col space-y-6">
+      <h2 class="font-bold text-gray-900 text-lg select-none">Welcome back, <span class="font-extrabold">Alex</span></h2>
+
+      <div id="stats-cards" class="grid grid-cols-2 sm:grid-cols-4 gap-4"></div>
+
+      <section>
+        <h3 class="font-semibold text-gray-900 text-sm mb-3 select-none">Today's Study Plan</h3>
+        <div id="study-plan" class="space-y-3"></div>
+      </section>
+
+      <section>
+        <h3 class="font-semibold text-gray-900 text-sm mb-3 select-none">Recent Materials</h3>
+        <div id="recent-materials" class="grid grid-cols-1 sm:grid-cols-3 gap-4"></div>
+      </section>
+    </section>
+
+    <!-- Right Sidebar -->
+    <aside class="flex flex-col space-y-6 md:w-72">
+      <section
+        class="bg-gray-50 rounded-md p-4 text-gray-700 text-xs leading-tight"
+        aria-label="Focus Enhancement"
+      >
+        <h3 class="font-semibold text-sm mb-3 select-none">Focus Enhancement</h3>
+        <div id="focus-enhancement" class="space-y-3"></div>
+      </section>
+
+      <section
+        class="text-gray-700 text-xs leading-tight"
+        aria-label="Study Tips"
+      >
+        <h3 class="font-semibold text-sm mb-3 select-none">Study Tips</h3>
+        <div class="bg-gray-50 rounded-md p-3 mb-4">
+          <p class="text-yellow-500 text-xs font-semibold flex items-center space-x-1 select-none">
+            <i class="far fa-lightbulb"></i>
+            <span>Tip of the Day</span>
+          </p>
+          <p class="text-gray-700 mt-1 leading-tight select-text">
+            Take regular breaks using the Pomodoro Technique - 25 minutes of focused study followed by a 5-minute break.
+          </p>
+        </div>
+        <ul class="space-y-3">
+          <li class="flex items-start space-x-2">
+            <i class="far fa-eye text-blue-600 mt-1"></i>
+            <p class="select-none">Review your notes within 24 hours to improve retention</p>
+          </li>
+          <li class="flex items-start space-x-2">
+            <i class="fas fa-music text-blue-600 mt-1"></i>
+            <p class="select-none">Use instrumental music to maintain focus</p>
+          </li>
+          <li class="flex items-start space-x-2">
+            <i class="fas fa-chart-line text-blue-600 mt-1"></i>
+            <p class="select-none">Track your progress to stay motivated</p>
+          </li>
+        </ul>
+      </section>
+    </aside>
+  </main>
+
+  <script>
+    // Navigation links data
+    const navLinks = [
+      { text: "Dashboard", href: "index_with_music.html" },
+      { text: "Materials", href: "materials.html" },
+      { text: "Schedule", href: "schedule.html" },
+      { text: "Quizzes", href: "quizzes.html" },
+      { text: "Study Steps", href: "studysteps.html" },
+    ];
+
+    const navContainer = document.getElementById("nav-links");
+    navLinks.forEach(({ text, href }) => {
+      const a = document.createElement("a");
+      a.href = href;
+      a.textContent = text;
+      a.className = "hover:text-gray-900";
+      navContainer.appendChild(a);
+    });
+
+    // Stats cards data
+    const stats = [
+      {
+        iconClass: "far fa-clock",
+        label: "Study Hours",
+        value: "24h",
+        sublabel: "This Week",
+      },
+      {
+        iconClass: "far fa-check-circle",
+        label: "Completed",
+        value: "12",
+        sublabel: "Topics",
+      },
+      {
+        iconClass: "far fa-star",
+        label: "Quiz Score",
+        value: "85%",
+        sublabel: "Average",
+      },
+      {
+        iconClass: "fas fa-tint",
+        label: "Study Streak",
+        value: "7",
+        sublabel: "Days",
+      },
+    ];
+
+    const statsContainer = document.getElementById("stats-cards");
+    stats.forEach(({ iconClass, label, value, sublabel }) => {
+      const card = document.createElement("div");
+      card.className = "border border-gray-200 rounded-md p-4 flex flex-col space-y-1";
+
+      const icon = document.createElement("div");
+      icon.className = "text-blue-600 text-lg";
+      icon.innerHTML = `<i class="${iconClass}"></i>`;
+
+      const labelP = document.createElement("p");
+      labelP.className = "text-xs text-gray-500 select-none";
+      labelP.textContent = label;
+
+      const valueP = document.createElement("p");
+      valueP.className = "font-bold text-base select-none";
+      valueP.textContent = value;
+
+      const sublabelP = document.createElement("p");
+      sublabelP.className = "text-xs text-gray-400 select-none";
+      sublabelP.textContent = sublabel;
+
+      card.appendChild(icon);
+      card.appendChild(labelP);
+      card.appendChild(valueP);
+      card.appendChild(sublabelP);
+
+      statsContainer.appendChild(card);
+    });
+
+    // Today's Study Plan data
+    const studyPlan = [
+      {
+        time: "09:00",
+        meridian: "AM",
+        subject: "Mathematics",
+        topic: "Calculus",
+        duration: "1h 30m",
+        buttonText: "Start",
+        buttonColor: "bg-blue-600 hover:bg-blue-600",
+      },
+      {
+        time: "11:00",
+        meridian: "AM",
+        subject: "Physics",
+        topic: "Quantum Mechanics",
+        duration: "2h",
+        buttonText: "Start",
+        buttonColor: "bg-blue-600 hover:bg-blue-700",
+      },
+      {
+        time: "02:00",
+        meridian: "PM",
+        subject: "Chemistry",
+        topic: "Organic Chemistry",
+        duration: "1h",
+        buttonText: "Start",
+        buttonColor: "bg-blue-600 hover:bg-blue-700",
+      },
+    ];
+
+    const studyPlanContainer = document.getElementById("study-plan");
+    studyPlan.forEach(({ time, meridian, subject, topic, duration, buttonText, buttonColor }) => {
+      const container = document.createElement("div");
+      container.className = "border border-gray-200 rounded-md p-3 flex flex-col sm:flex-row sm:items-center sm:justify-between";
+
+      const left = document.createElement("div");
+      left.className = "flex items-center space-x-3 mb-2 sm:mb-0";
+
+      const timeSpan = document.createElement("span");
+      timeSpan.className = "text-xs text-gray-600 select-none";
+      timeSpan.innerHTML = `${time} <span class="font-normal">${meridian}</span>`;
+
+      const subjectDiv = document.createElement("div");
+      const subjectP = document.createElement("p");
+      subjectP.className = "font-semibold text-sm text-gray-900 select-none";
+      subjectP.textContent = subject;
+      const topicP = document.createElement("p");
+      topicP.className = "text-xs text-gray-500 select-none";
+      topicP.textContent = topic;
+
+      subjectDiv.appendChild(subjectP);
+      subjectDiv.appendChild(topicP);
+
+      left.appendChild(timeSpan);
+      left.appendChild(subjectDiv);
+
+      const right = document.createElement("div");
+      right.className = "flex items-center space-x-4";
+
+      const durationSpan = document.createElement("span");
+      durationSpan.className = "text-xs text-gray-600 select-none";
+      durationSpan.textContent = duration;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `${buttonColor} text-white text-xs font-semibold rounded-md py-1.5 px-4 select-none`;
+      button.textContent = buttonText;
+
+      // Add click handlers for study plan buttons
+      button.addEventListener('click', () => {
+        // Cycle button text and color: Start -> Continue -> Done, then stay Done
+        if (button.textContent === "Start") {
+          button.textContent = "Continue";
+          button.classList.remove("bg-blue-600", "hover:bg-blue-700");
+          button.classList.add("bg-green-500", "hover:bg-green-600");
+        } else if (button.textContent === "Continue") {
+          button.textContent = "Done";
+          button.classList.remove("bg-green-500", "hover:bg-green-600");
+          button.classList.add("bg-gray-500", "hover:bg-gray-600");
+        } else if (button.textContent === "Done") {
+          // Do nothing, stay Done
+          return;
+        }
+      });
+
+      right.appendChild(durationSpan);
+      right.appendChild(button);
+
+      container.appendChild(left);
+      container.appendChild(right);
+
+      studyPlanContainer.appendChild(container);
+    });
+
+    // Recent Materials data
+    const recentMaterials = [
+      {
+        title: "Calculus Notes",
+        date: "Jan 15, 2024",
+        type: "PDF",
+        progress: 70,
+      },
+      {
+        title: "Physics Formulas",
+        date: "Jan 14, 2024",
+        type: "PDF",
+        progress: 90,
+      },
+      {
+        title: "Chemistry Lab",
+        date: "Jan 13, 2024",
+        type: "Document",
+        progress: 30,
+      },
+    ];
+
+    const recentMaterialsContainer = document.getElementById("recent-materials");
+    recentMaterials.forEach(({ title, date, type, progress }) => {
+      const article = document.createElement("article");
+      article.className = "border border-gray-200 rounded-md p-3 flex flex-col space-y-1";
+      article.setAttribute("aria-label", `${title} ${type}`);
+
+      const topRow = document.createElement("div");
+      topRow.className = "flex justify-between items-center";
+
+      const titleP = document.createElement("p");
+      titleP.className = "font-semibold text-sm text-gray-900 select-none";
+      titleP.textContent = title;
+
+      const dateP = document.createElement("p");
+      dateP.className = "text-xs text-gray-500 select-none";
+      dateP.textContent = date;
+
+      topRow.appendChild(titleP);
+      topRow.appendChild(dateP);
+
+      const typeP = document.createElement("p");
+      typeP.className = "text-xs text-gray-500 select-none";
+      typeP.textContent = type;
+
+      const progressBarBg = document.createElement("div");
+      progressBarBg.className = "w-full bg-gray-200 rounded-full h-2 mt-1";
+
+      const progressBar = document.createElement("div");
+      progressBar.className = "bg-blue-600 h-2 rounded-full";
+      progressBar.style.width = progress + "%";
+
+      progressBarBg.appendChild(progressBar);
+
+      article.appendChild(topRow);
+      article.appendChild(typeP);
+      article.appendChild(progressBarBg);
+
+      // Add click handler for recent materials
+      article.addEventListener('click', () => {
+        alert(`Clicked on material: ${title}`);
+        // Add navigation or other logic here
+      });
+
+      recentMaterialsContainer.appendChild(article);
+    });
+  </script>
+</body>
+</html>
