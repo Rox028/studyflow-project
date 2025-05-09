@@ -1,0 +1,3 @@
+[submodule "studyflow"]
+	path = studyflow
+	url = https://github.com/Rox028/studyflow-project.git
